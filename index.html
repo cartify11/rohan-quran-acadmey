@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Online Rohan Quran Academy - Learn Quran Online with qualified male and female tutors. One-to-one Tajweed, Hifz, Noorani Qaida, and Islamic Studies for kids and adults worldwide.">
   <meta name="keywords" content="Online Rohan Quran Academy, Learn Quran Online, Quran Tutors, Tajweed Classes, Hifz Quran, Noorani Qaida, Female Quran Teacher">
+  <meta name="theme-color" content="#083325">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Online Rohan Quran Academy | Learn Quran Online With Qualified Tutors</title>
+
+  <!-- OpenGraph / WhatsApp Link Preview Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rohan-quran-acadmey.vercel.app/">
+  <meta property="og:title" content="Online Rohan Quran Academy | 1-on-1 Online Quran Classes">
+  <meta property="og:description" content="Learn Quran online with qualified male and female tutors. 1-on-1 Noorani Qaida, Tajweed, and Hifz. Book your Free Trial Class today!">
+  <meta property="og:image" content="https://rohan-quran-acadmey.vercel.app/assets/images/hero-quran-academy.jpg">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Online Rohan Quran Academy | 1-on-1 Online Quran Classes">
+  <meta name="twitter:description" content="Learn Quran online with qualified male and female tutors. 1-on-1 Noorani Qaida, Tajweed, and Hifz. Book your Free Trial Class today!">
+  <meta name="twitter:image" content="https://rohan-quran-acadmey.vercel.app/assets/images/hero-quran-academy.jpg">
 
   <!-- Google Fonts: Plus Jakarta Sans & Amiri -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -518,6 +533,56 @@
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
               </div>
+            </div>
+        </div>
+
+        <!-- Tajweed Audio Recitation Showcase -->
+        <div class="tajweed-audio-showcase reveal-on-scroll">
+          <div class="audio-showcase-content">
+            <div class="audio-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              <span>Authentic Tajweed Audio Showcase</span>
+            </div>
+            <h3 class="audio-showcase-title">Listen to Our Quran Recitation Quality</h3>
+            <p class="audio-showcase-desc">Hear the clear pronunciation, correct Makharij, and authentic Tajweed taught in our 1-on-1 personalized classes.</p>
+          </div>
+
+          <div class="audio-player-card">
+            <button type="button" class="audio-play-btn" id="quranPlayBtn" aria-label="Play Quran Recitation Sample">
+              <svg class="play-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg class="pause-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+
+            <div class="audio-player-info">
+              <div class="audio-track-header">
+                <span class="audio-track-name">Surah Al-Fatiha (Tajweed Sample)</span>
+                <span class="audio-duration" id="audioDuration">0:00 / 0:42</span>
+              </div>
+              
+              <!-- Animated Waveform Bars -->
+              <div class="audio-waveform" id="audioWaveform">
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+                <span class="wave-bar"></span>
+              </div>
+              <audio id="quranAudio" preload="none" src="https://server7.mp3quran.net/basit/001.mp3"></audio>
             </div>
           </div>
         </div>
@@ -1132,9 +1197,24 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toastNotification">
-    <span class="toast-text">Message notification</span>
+  <!-- Floating WhatsApp CTA -->
+  <a href="https://wa.me/923227018875" id="whatsappBtn" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32">
+      <path d="M16 2a13.9 13.9 0 0 0-12 21L2 30l7.2-1.9A13.9 13.9 0 1 0 16 2zm7.9 19.6c-.3.9-1.8 1.7-2.5 1.8-.7.1-1.6.2-2.6-.2-1.6-.5-3.6-1.5-5.6-3.5s-3-4-3.5-5.6c-.4-1-.3-1.9-.2-2.6.1-.7.9-2.2 1.8-2.5.3-.1.6-.1.8.3.3.7 1 2.4 1.1 2.6.1.2.1.4 0 .6-.2.4-.4.6-.6.8-.2.2-.4.4-.2.8.5.9 1.4 2 2.6 3.1 1.5 1.4 2.8 1.9 3.8 2.3.4.2.7.1.9-.1.3-.3 1-1.2 1.3-1.6.3-.4.6-.3.9-.2.3.1 2.1 1 2.5 1.2.4.2.6.3.7.5.1.4-.2 1.9-.5 2.8z"/>
+    </svg>
+  </a>
+
+  <!-- Social Proof Recent Enrollment Toast -->
+  <div class="social-proof-toast" id="socialProofToast" role="status" aria-live="polite">
+    <button type="button" class="toast-close-btn" id="closeToastBtn" aria-label="Close notification">&times;</button>
+    <div class="toast-avatar">
+      <span class="toast-flag" id="toastFlag">🇬🇧</span>
+      <span class="toast-online-dot"></span>
+    </div>
+    <div class="toast-content">
+      <p class="toast-text" id="toastText"><strong>Zainab from London, UK</strong> booked a Free Trial</p>
+      <span class="toast-time" id="toastTime">8 minutes ago • Verified Student</span>
+    </div>
   </div>
 
   <!-- Interactive JavaScript -->

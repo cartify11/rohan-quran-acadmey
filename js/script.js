@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initModals();
   initCurrencyToggle();
+  initTajweedAudio();
+  initSocialProof();
+  initScrollReveal();
   initFormValidation();
   initWhatsAppCTA();
   initSmoothScroll();
@@ -660,4 +663,141 @@ function initCurrencyToggle() {
     });
   });
 }
+
+/* --------------------------------------------------------------------------
+   9. TAJWEED AUDIO RECITATION SHOWCASE
+   -------------------------------------------------------------------------- */
+function initTajweedAudio() {
+  const playBtn = document.getElementById('quranPlayBtn');
+  const audio = document.getElementById('quranAudio');
+  const waveform = document.getElementById('audioWaveform');
+  const durationDisplay = document.getElementById('audioDuration');
+
+  if (!playBtn || !audio) return;
+
+  const playIcon = playBtn.querySelector('.play-icon');
+  const pauseIcon = playBtn.querySelector('.pause-icon');
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) playIcon.style.display = 'block';
+        if (waveform) waveform.classList.add('playing');
+      }).catch(e => {
+        console.log('Audio playback notice:', e);
+      });
+    } else {
+      audio.pause();
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (waveform) waveform.classList.remove('playing');
+    }
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (durationDisplay) {
+      const current = formatTime(audio.currentTime);
+      const total = audio.duration ? formatTime(audio.duration) : '0:42';
+      durationDisplay.textContent = `${current} / ${total}`;
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (waveform) waveform.classList.remove('playing');
+    if (durationDisplay) durationDisplay.textContent = '0:00 / 0:42';
+  });
+}
+
+/* --------------------------------------------------------------------------
+   10. SOCIAL PROOF RECENT ENROLLMENT TOASTS
+   -------------------------------------------------------------------------- */
+function initSocialProof() {
+  const toast = document.getElementById('socialProofToast');
+  const closeBtn = document.getElementById('closeToastBtn');
+  const toastFlag = document.getElementById('toastFlag');
+  const toastText = document.getElementById('toastText');
+  const toastTime = document.getElementById('toastTime');
+
+  if (!toast) return;
+
+  const events = [
+    { name: 'Zainab from London, UK', action: 'booked a Free Trial', time: '6 minutes ago', flag: '🇬🇧' },
+    { name: 'Ibrahim from Dallas, USA', action: 'enrolled in Tajweed Course', time: '14 minutes ago', flag: '🇺🇸' },
+    { name: 'Ayaan from Toronto, Canada', action: 'started Noorani Qaida', time: '21 minutes ago', flag: '🇨🇦' },
+    { name: 'Maryam from Dubai, UAE', action: 'booked a Free Trial', time: '32 minutes ago', flag: '🇦🇪' },
+    { name: 'Hamza from Sydney, Australia', action: 'enrolled in Quran Hifz', time: '48 minutes ago', flag: '🇦🇺' },
+    { name: 'Fatima from Birmingham, UK', action: 'booked a Free Trial', time: '1 hour ago', flag: '🇬🇧' }
+  ];
+
+  let eventIndex = 0;
+  let isDismissed = false;
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      toast.classList.remove('show');
+      isDismissed = true;
+    });
+  }
+
+  function showNextEvent() {
+    if (isDismissed) return;
+
+    const ev = events[eventIndex % events.length];
+    if (toastFlag) toastFlag.textContent = ev.flag;
+    if (toastText) toastText.innerHTML = `<strong>${ev.name}</strong> ${ev.action}`;
+    if (toastTime) toastTime.textContent = `${ev.time} • Verified Student`;
+
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 6000);
+
+    eventIndex++;
+  }
+
+  // Initial trigger after 6 seconds, then recurring every 28 seconds
+  setTimeout(() => {
+    showNextEvent();
+    setInterval(showNextEvent, 28000);
+  }, 6000);
+}
+
+/* --------------------------------------------------------------------------
+   11. SCROLL REVEAL (INTERSECTION OBSERVER)
+   -------------------------------------------------------------------------- */
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  if (!revealElements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    revealElements.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -30px 0px'
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+}
+
 
