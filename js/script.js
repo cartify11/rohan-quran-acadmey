@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initModals();
   initCurrencyToggle();
+  initLuxuryAudioPlayer();
   initSocialProof();
   initScrollReveal();
   initFormValidation();
@@ -744,5 +745,78 @@ function initScrollReveal() {
 
   revealElements.forEach(el => observer.observe(el));
 }
+
+/* --------------------------------------------------------------------------
+   12. LUXURY CENTERED TAJWEED AUDIO PLAYER
+   -------------------------------------------------------------------------- */
+function initLuxuryAudioPlayer() {
+  const playBtn = document.getElementById('luxuryPlayBtn');
+  const audio = document.getElementById('luxuryAudio');
+  const progressBar = document.getElementById('luxuryProgressBar');
+  const progressWrap = document.getElementById('luxuryProgressWrap');
+  const timeDisplay = document.getElementById('luxuryTrackTime');
+  const waveform = document.getElementById('luxuryWaveform');
+
+  if (!playBtn || !audio) return;
+
+  const playIcon = playBtn.querySelector('.play-icon');
+  const pauseIcon = playBtn.querySelector('.pause-icon');
+
+  function formatTime(seconds) {
+    if (isNaN(seconds) || seconds < 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) playIcon.style.display = 'block';
+        if (waveform) waveform.classList.add('playing');
+      }).catch(e => {
+        console.log('Audio notice:', e);
+      });
+    } else {
+      audio.pause();
+      if (playIcon) playIcon.style.display = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
+      if (waveform) waveform.classList.remove('playing');
+    }
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      if (progressBar) progressBar.style.width = `${percent}%`;
+      if (timeDisplay) {
+        const cur = formatTime(audio.currentTime);
+        const dur = formatTime(audio.duration);
+        timeDisplay.textContent = `${cur} / ${dur}`;
+      }
+    }
+  });
+
+  if (progressWrap) {
+    progressWrap.addEventListener('click', (e) => {
+      if (!audio.duration) return;
+      const rect = progressWrap.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
+      const seekTime = (clickX / width) * audio.duration;
+      audio.currentTime = seekTime;
+    });
+  }
+
+  audio.addEventListener('ended', () => {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (waveform) waveform.classList.remove('playing');
+    if (progressBar) progressBar.style.width = '0%';
+    if (timeDisplay) timeDisplay.textContent = '0:00 / 0:42';
+  });
+}
+
 
 
