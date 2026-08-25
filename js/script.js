@@ -70,7 +70,8 @@ function initCounters() {
   if (!statNumbers.length) return;
 
   const observerOptions = {
-    threshold: 0.5
+    threshold: 0.2,
+    rootMargin: '0px 0px -20px 0px'
   };
 
   const observer = new IntersectionObserver((entries, obs) => {
@@ -720,30 +721,44 @@ function initSocialProof() {
 }
 
 /* --------------------------------------------------------------------------
-   11. SCROLL REVEAL (INTERSECTION OBSERVER)
+   11. SCROLL REVEAL & STAGGERED MICRO-ANIMATIONS
    -------------------------------------------------------------------------- */
 function initScrollReveal() {
-  const revealElements = document.querySelectorAll('.reveal-on-scroll');
-  if (!revealElements.length) return;
+  const cards = document.querySelectorAll('.course-card, .why-card, .step-card, .teacher-card, .testimonial-card, .pricing-card, .faq-item, .stat-card, .luxury-audio-wrapper');
+  cards.forEach(card => card.classList.add('reveal-item'));
+
+  const revealTargets = document.querySelectorAll('.reveal-on-scroll, .courses-grid, .why-grid, .steps-wrapper, .teachers-grid, .testimonials-grid, .pricing-grid, .faq-accordion, .stats-grid, .about-grid, .enroll-card-wrapper');
+  if (!revealTargets.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    revealElements.forEach(el => el.classList.add('is-visible'));
+    document.querySelectorAll('.reveal-item, .reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
     return;
   }
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        obs.unobserve(entry.target);
+        const el = entry.target;
+        el.classList.add('is-visible');
+
+        const children = el.querySelectorAll('.reveal-item');
+        if (children.length) {
+          children.forEach((child, idx) => {
+            setTimeout(() => {
+              child.classList.add('is-visible');
+            }, idx * 80);
+          });
+        }
+
+        obs.unobserve(el);
       }
     });
   }, {
     threshold: 0.1,
-    rootMargin: '0px 0px -30px 0px'
+    rootMargin: '0px 0px -40px 0px'
   });
 
-  revealElements.forEach(el => observer.observe(el));
+  revealTargets.forEach(el => observer.observe(el));
 }
 
 /* --------------------------------------------------------------------------

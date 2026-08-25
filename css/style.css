@@ -211,6 +211,26 @@ button {
   background: var(--gold-gradient);
   color: var(--primary-dark);
   box-shadow: 0 6px 20px rgba(197, 160, 89, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  animation: buttonGleam 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes buttonGleam {
+  0%, 70% { left: -120%; }
+  100% { left: 180%; }
 }
 
 .btn-primary:hover {
@@ -2573,13 +2593,25 @@ button {
    -------------------------------------------------------------------------- */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-on-scroll.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
