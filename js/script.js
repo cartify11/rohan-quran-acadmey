@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounters();
   initAccordion();
   initModals();
+  initCurrencyToggle();
   initFormValidation();
   initWhatsAppCTA();
   initSmoothScroll();
@@ -618,3 +619,45 @@ function initSmoothScroll() {
     });
   });
 }
+
+/* --------------------------------------------------------------------------
+   8. PRICING CURRENCY SWITCHER (USD / PKR)
+   -------------------------------------------------------------------------- */
+function initCurrencyToggle() {
+  const toggleBtns = document.querySelectorAll('.currency-toggle-btn');
+  if (!toggleBtns.length) return;
+
+  const priceBoxes = document.querySelectorAll('.plan-price-box');
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedCurrency = btn.getAttribute('data-currency');
+
+      toggleBtns.forEach(b => {
+        const isCurrent = b === btn;
+        b.classList.toggle('active', isCurrent);
+        b.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+      });
+
+      priceBoxes.forEach(box => {
+        const priceEl = box.querySelector('.plan-price');
+        const currEl = box.querySelector('.plan-currency');
+
+        if (priceEl && currEl) {
+          box.classList.remove('animating');
+          void box.offsetWidth; // Trigger reflow
+          box.classList.add('animating');
+
+          if (selectedCurrency === 'PKR') {
+            priceEl.textContent = priceEl.getAttribute('data-pkr');
+            currEl.textContent = currEl.getAttribute('data-pkr');
+          } else {
+            priceEl.textContent = priceEl.getAttribute('data-usd');
+            currEl.textContent = currEl.getAttribute('data-usd');
+          }
+        }
+      });
+    });
+  });
+}
+
