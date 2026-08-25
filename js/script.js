@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordion();
   initModals();
   initCurrencyToggle();
-  initTajweedAudio();
   initSocialProof();
   initScrollReveal();
   initFormValidation();
@@ -665,61 +664,7 @@ function initCurrencyToggle() {
 }
 
 /* --------------------------------------------------------------------------
-   9. TAJWEED AUDIO RECITATION SHOWCASE
-   -------------------------------------------------------------------------- */
-function initTajweedAudio() {
-  const playBtn = document.getElementById('quranPlayBtn');
-  const audio = document.getElementById('quranAudio');
-  const waveform = document.getElementById('audioWaveform');
-  const durationDisplay = document.getElementById('audioDuration');
-
-  if (!playBtn || !audio) return;
-
-  const playIcon = playBtn.querySelector('.play-icon');
-  const pauseIcon = playBtn.querySelector('.pause-icon');
-
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  }
-
-  playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        if (playIcon) playIcon.style.display = 'none';
-        if (pauseIcon) playIcon.style.display = 'block';
-        if (waveform) waveform.classList.add('playing');
-      }).catch(e => {
-        console.log('Audio playback notice:', e);
-      });
-    } else {
-      audio.pause();
-      if (playIcon) playIcon.style.display = 'block';
-      if (pauseIcon) pauseIcon.style.display = 'none';
-      if (waveform) waveform.classList.remove('playing');
-    }
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    if (durationDisplay) {
-      const current = formatTime(audio.currentTime);
-      const total = audio.duration ? formatTime(audio.duration) : '0:42';
-      durationDisplay.textContent = `${current} / ${total}`;
-    }
-  });
-
-  audio.addEventListener('ended', () => {
-    if (playIcon) playIcon.style.display = 'block';
-    if (pauseIcon) pauseIcon.style.display = 'none';
-    if (waveform) waveform.classList.remove('playing');
-    if (durationDisplay) durationDisplay.textContent = '0:00 / 0:42';
-  });
-}
-
-/* --------------------------------------------------------------------------
-   10. SOCIAL PROOF RECENT ENROLLMENT TOASTS
+   9. SOCIAL PROOF RECENT ENROLLMENT TOASTS
    -------------------------------------------------------------------------- */
 function initSocialProof() {
   const toast = document.getElementById('socialProofToast');
