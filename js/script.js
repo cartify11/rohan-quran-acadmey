@@ -3,6 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAOS();
   initNavbar();
   initCounters();
   initAccordion();
@@ -14,6 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initWhatsAppCTA();
   initSmoothScroll();
 });
+
+function initAOS() {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 650,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 40
+    });
+  }
+}
 
 /* --------------------------------------------------------------------------
    1. NAVBAR & MOBILE MENU
