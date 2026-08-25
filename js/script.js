@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCurrencyToggle();
   initLuxuryAudioPlayer();
   initSocialProof();
-  initScrollReveal();
   initFormValidation();
   initWhatsAppCTA();
   initSmoothScroll();
@@ -721,48 +720,7 @@ function initSocialProof() {
 }
 
 /* --------------------------------------------------------------------------
-   11. SCROLL REVEAL & STAGGERED MICRO-ANIMATIONS
-   -------------------------------------------------------------------------- */
-function initScrollReveal() {
-  const cards = document.querySelectorAll('.course-card, .why-card, .step-card, .teacher-card, .testimonial-card, .pricing-card, .faq-item, .stat-card, .luxury-audio-wrapper');
-  cards.forEach(card => card.classList.add('reveal-item'));
-
-  const revealTargets = document.querySelectorAll('.reveal-on-scroll, .courses-grid, .why-grid, .steps-wrapper, .teachers-grid, .testimonials-grid, .pricing-grid, .faq-accordion, .stats-grid, .about-grid, .enroll-card-wrapper');
-  if (!revealTargets.length) return;
-
-  if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal-item, .reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        el.classList.add('is-visible');
-
-        const children = el.querySelectorAll('.reveal-item');
-        if (children.length) {
-          children.forEach((child, idx) => {
-            setTimeout(() => {
-              child.classList.add('is-visible');
-            }, idx * 80);
-          });
-        }
-
-        obs.unobserve(el);
-      }
-    });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-  });
-
-  revealTargets.forEach(el => observer.observe(el));
-}
-
-/* --------------------------------------------------------------------------
-   12. LUXURY CENTERED TAJWEED AUDIO PLAYER
+   11. LUXURY CENTERED TAJWEED AUDIO PLAYER
    -------------------------------------------------------------------------- */
 function initLuxuryAudioPlayer() {
   const playBtn = document.getElementById('luxuryPlayBtn');
