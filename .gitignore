@@ -1,5 +1,11 @@
-# Local dev helper
-server.js
+# OS & Editor Files
+.DS_Store
+Thumbs.db
 .vscode/
 .idea/
+
+# Logs & Temporary Files
 *.log
+*.tmp
+*.bak
+*.swp
