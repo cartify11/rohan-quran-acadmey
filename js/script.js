@@ -202,7 +202,7 @@ function initModals() {
             <li style="margin-bottom: 6px;">Interactive digital screen sharing and audio practice</li>
             <li style="margin-bottom: 6px;">Monthly progress assessment report for parents/students</li>
           </ul>
-          <button onclick="selectCourseAndEnroll('${courseName}')" class="btn btn-primary" style="width: 100%;">Book Free Trial For ${courseName}</button>
+          <button onclick="selectCourseAndEnroll('${courseName}')" class="btn btn-primary" style="width: 100%; white-space: normal; line-height: 1.35; padding: 13px 16px;">Book Free Trial</button>
         </div>
       `;
       modalOverlay.classList.add('active');

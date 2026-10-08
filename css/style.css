@@ -71,6 +71,8 @@ html {
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -79,6 +81,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  max-width: 100%;
   position: relative;
 }
 
@@ -470,6 +473,7 @@ button {
   font-weight: 700;
   color: var(--primary-dark);
   margin-bottom: 20px;
+  max-width: 100%;
 }
 
 .hero-badge-dot {
@@ -503,6 +507,8 @@ button {
   letter-spacing: -0.8px;
   margin-bottom: 20px;
   max-width: 650px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .hero-title span.highlight {
@@ -1244,7 +1250,6 @@ button {
   color: var(--primary-dark);
   margin-bottom: 2px;
 }
-}
 
 .user-details span {
   font-size: 0.8rem;
@@ -1823,6 +1828,7 @@ button {
   height: 100%;
   background: rgba(8, 51, 37, 0.65);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 2500;
   display: flex;
   align-items: center;
@@ -1831,6 +1837,9 @@ button {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -1851,6 +1860,9 @@ button {
   border: 1px solid rgba(197, 160, 89, 0.35);
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  margin: auto;
 }
 
 .modal-overlay.active .modal-box {
@@ -1881,9 +1893,21 @@ button {
   color: #FFFFFF;
 }
 
+.modal-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  padding-right: 38px;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
 /* Teacher Profile Modal Layout */
 .teacher-profile-modal {
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-header-card {
@@ -1893,6 +1917,7 @@ button {
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid var(--border-light);
+  min-width: 0;
 }
 
 .profile-avatar-wrapper {
@@ -1913,6 +1938,7 @@ button {
 
 .profile-header-meta {
   flex-grow: 1;
+  min-width: 0;
 }
 
 .profile-title-row {
@@ -1921,6 +1947,7 @@ button {
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 4px;
+  flex-wrap: wrap;
 }
 
 .profile-name-text {
@@ -1928,6 +1955,7 @@ button {
   font-weight: 800;
   color: var(--primary-dark);
   line-height: 1.2;
+  word-break: break-word;
 }
 
 .profile-gender-pill {
@@ -1944,6 +1972,7 @@ button {
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--gold-dark);
+  word-break: break-word;
 }
 
 /* Profile Stat Chips */
@@ -1952,6 +1981,8 @@ button {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 22px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .profile-stat-chip {
@@ -1962,6 +1993,8 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .profile-chip-icon {
@@ -2074,6 +2107,10 @@ button {
     grid-template-columns: 1fr;
     gap: 40px;
   }
+  .hero-image-wrapper {
+    max-width: 520px;
+    margin: 0 auto;
+  }
   .hero-image-card img {
     height: 380px;
   }
@@ -2100,7 +2137,11 @@ button {
     display: inline;
   }
   .hero-image-wrapper {
-    margin-top: 0;
+    margin-top: 10px;
+  }
+  .hero-floating-card {
+    left: 14px;
+    bottom: 14px;
   }
   .hamburger {
     display: flex;
@@ -2109,7 +2150,7 @@ button {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
+    width: 82%;
     max-width: 320px;
     height: 100vh;
     background: var(--bg-cream);
@@ -2119,6 +2160,7 @@ button {
     align-items: flex-start;
     transition: var(--transition-smooth);
     z-index: 1000;
+    overflow-y: auto;
   }
   .nav-menu.open {
     right: 0;
@@ -2126,17 +2168,8 @@ button {
   .nav-actions .btn {
     display: none;
   }
-  .hero-image-card img {
-    height: 420px;
-  }
   .courses-grid, .why-grid, .steps-wrapper, .testimonials-grid, .pricing-grid {
     grid-template-columns: 1fr;
-  }
-
-  @media (max-width: 600px) {
-    .teachers-grid {
-      grid-template-columns: 1fr;
-    }
   }
   .footer-grid {
     grid-template-columns: 1fr;
@@ -2158,36 +2191,299 @@ button {
   .hero-nowrap {
     white-space: normal;
   }
+  .hero-title span.highlight {
+    white-space: normal;
+  }
+  .hero-title {
+    font-size: clamp(1.85rem, 6.8vw, 2.45rem);
+    letter-spacing: -0.5px;
+    line-height: 1.22;
+  }
+  .hero-badge {
+    max-width: 100%;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    line-height: 1.35;
+  }
+  .hero-description {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-bottom: 26px;
+  }
+  .teachers-grid {
+    grid-template-columns: 1fr;
+  }
+  .enroll-info-side,
+  .enroll-form-side {
+    padding: 32px 22px;
+  }
+  .whatsapp-float {
+    bottom: 20px;
+    right: 18px;
+    width: 52px;
+    height: 52px;
+  }
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: 14px 10px;
+    align-items: center;
+  }
+  .modal-box {
+    padding: 22px 16px;
+    border-radius: 16px;
+    max-height: 88vh;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .modal-title {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+    padding-right: 34px;
+  }
+  .modal-close {
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    font-size: 1.15rem;
+  }
+  .profile-header-card {
+    gap: 12px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+  .profile-avatar-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  .profile-title-row {
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+  .profile-name-text {
+    font-size: 1.1rem;
+    word-break: break-word;
+  }
+  .profile-gender-pill {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+  }
+  .profile-spec-text {
+    font-size: 0.8rem;
+  }
+  .profile-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .profile-stat-chip {
+    padding: 10px 12px;
+    gap: 10px;
+    box-sizing: border-box;
+  }
+  .profile-chip-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .chip-label {
+    font-size: 0.72rem;
+  }
+  .chip-value {
+    font-size: 0.825rem;
+  }
+  .profile-section-block {
+    margin-bottom: 16px;
+  }
+  .profile-block-heading {
+    font-size: 0.8rem;
+  }
+  .profile-bio-p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .profile-courses-list li {
+    font-size: 0.825rem;
+    gap: 8px;
+  }
+  .profile-cta-btn {
+    padding: 12px;
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 5.5vw, 2rem);
+  }
+  .course-card,
+  .teacher-card,
+  .testimonial-card,
+  .why-card,
+  .pricing-card {
+    padding: 24px 18px;
+  }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
   .hero {
-    padding-top: 130px;
+    padding-top: 118px;
+    padding-bottom: 50px;
+  }
+  .hero-title {
+    font-size: clamp(1.55rem, 6.8vw, 1.95rem);
+    letter-spacing: -0.4px;
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .hero-badge {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    gap: 6px;
+    margin-bottom: 16px;
   }
   .hero-ctas {
     flex-direction: column;
     width: 100%;
+    gap: 12px;
+    margin-bottom: 28px;
   }
   .hero-ctas .btn {
     width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 0.95rem;
+  }
+  .trust-indicators {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 20px;
+  }
+  .trust-item {
+    font-size: 0.85rem;
+  }
+  .hero-image-card {
+    border-radius: 60px 60px 20px 20px;
+    border-width: 3px;
+  }
+  .hero-image-card img {
+    height: 300px;
+  }
+  .hero-floating-card {
+    bottom: 10px;
+    left: 10px;
+    padding: 8px 12px;
+    max-width: 215px;
+    gap: 10px;
+  }
+  .floating-avatar-group img {
+    width: 30px;
+    height: 30px;
+    margin-left: -8px;
+  }
+  .floating-title {
+    font-size: 0.78rem;
+  }
+  .floating-subtitle {
+    font-size: 0.68rem;
+  }
+  .stats-section {
+    padding: 24px 0;
+    margin-top: -15px;
   }
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 22px 14px;
+    gap: 16px 10px;
+    border-radius: var(--radius-md);
   }
   .stat-card::after {
     display: none !important;
   }
-  .cta-banner {
-    padding: 40px 20px;
+  .stat-number {
+    font-size: 1.75rem;
   }
-  .trust-indicators {
+  .stat-label {
+    font-size: 0.78rem;
+  }
+  .section-title {
+    font-size: clamp(1.45rem, 6vw, 1.8rem);
+    line-height: 1.25;
+  }
+  .section-subtitle {
+    font-size: 0.88rem;
+    margin-bottom: 24px;
+  }
+  .section-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  .cta-banner {
+    padding: 34px 16px;
+    border-radius: var(--radius-md);
+  }
+  .cta-banner-title {
+    font-size: 1.5rem;
+  }
+  .cta-banner-desc {
+    font-size: 0.88rem;
+  }
+  .enroll-info-side,
+  .enroll-form-side {
+    padding: 22px 14px;
+  }
+  .enroll-info-title {
+    font-size: 1.4rem;
+  }
+  .enroll-info-desc {
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+  .enroll-perk-item {
+    font-size: 0.825rem;
+  }
+  .whatsapp-float {
+    bottom: 16px;
+    right: 14px;
+    width: 48px;
+    height: 48px;
+  }
+  .whatsapp-float svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 1.45rem;
+  }
+  .stats-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
   .hero-floating-card {
-    bottom: 12px;
-    left: 12px;
-    padding: 10px 14px;
-    max-width: 230px;
+    max-width: 195px;
+    padding: 6px 10px;
+  }
+  .floating-avatar-group img {
+    width: 26px;
+    height: 26px;
+  }
+  .floating-title {
+    font-size: 0.72rem;
+  }
+  .floating-subtitle {
+    font-size: 0.64rem;
   }
 }
 
